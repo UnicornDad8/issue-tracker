@@ -18,7 +18,7 @@ const Navbar = () => {
   return (
     <nav className="flex space-x-6 border-b mb-5 px-5 h-14 items-center">
       <Link href="/">
-        <BsFillBugFill color="#89AAF4" size={"1.8rem"} />
+        <BsFillBugFill color="#3B82F6" size={"1.8rem"} />
       </Link>
       <ul className="flex">
         {links.map((link) => (
