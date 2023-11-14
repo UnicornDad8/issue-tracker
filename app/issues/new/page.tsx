@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
 import styles from "./style.module.css";
 
 const NewIssuePage = () => {
@@ -14,7 +16,7 @@ const NewIssuePage = () => {
         />
       </div>
       <div className="leading-normal">
-        <textarea
+        <SimpleMDE
           className="border rounded-sm w-full px-4 py-3"
           placeholder="Description"
         />
