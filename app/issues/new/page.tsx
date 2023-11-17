@@ -8,6 +8,7 @@ import { createIssueSchema } from "../../validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import ErrorMessage from "../../components/ErrorMessage";
+import Spinner from "../../components/Spinner";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import styles from "./style.module.css";
@@ -25,6 +26,7 @@ const NewIssuePage = () => {
     resolver: zodResolver(createIssueSchema),
   });
   const [error, setError] = useState("");
+  const [isSubmitting, setSubmitting] = useState(false);
 
   return (
     <div className="max-w-xl">
@@ -54,9 +56,12 @@ const NewIssuePage = () => {
         className="space-y-3"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setSubmitting(true);
             await axios.post("/api/issues", data);
             router.push("/issues");
+            setSubmitting(false);
           } catch (error) {
+            setSubmitting(false);
             setError("An unexpected error occurred.");
           }
         })}
@@ -72,21 +77,19 @@ const NewIssuePage = () => {
         </div>
         <div className="leading-normal">
           <Controller
-            name="Description"
+            name="description"
             control={control}
             render={({ field }) => (
-              <SimpleMDE
-                className="border rounded-sm w-full px-4 py-3"
-                placeholder="Description"
-                {...field}
-                ref={null}
-              />
+              <SimpleMDE placeholder="Description" {...field} />
             )}
           />
           <ErrorMessage>{errors.description?.message}</ErrorMessage>
         </div>
-        <button className={`${styles["btn"]} ${styles["btnBlue"]}`}>
-          Submit New Issue
+        <button
+          className={`${styles["btn"]} ${styles["btnBlue"]}`}
+          disabled={isSubmitting}
+        >
+          Submit New Issue {isSubmitting && <Spinner />}
         </button>
       </form>
     </div>
