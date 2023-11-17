@@ -1,21 +1,14 @@
 import React from "react";
-import Link from "next/link";
-import prisma from "@/prisma/client";
-import IssueStatusBadge from "../components/IssueStatusBadge";
-import delay from "delay";
-import styles from "./style.module.css";
+import Skeleton from "react-loading-skeleton";
+import IssueActions from "./IssueActions";
+import "react-loading-skeleton/dist/skeleton.css";
 
-const IssuesPage = async () => {
-  const issues = await prisma.issue.findMany();
-  await delay(2000);
+const LoadingIssuesPage = () => {
+  const issues = [1, 2, 3, 4, 5];
+
   return (
     <div>
-      <div className="mb-5">
-        <button className={`${styles["btn"]} ${styles["btnBlue"]}`}>
-          <Link href="/issues/new">New Issue</Link>
-        </button>
-      </div>
-
+      <IssueActions />
       <div className="relative border overflow-hidden overflow-x-auto sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right text-gray-500 bg-white">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
@@ -33,24 +26,21 @@ const IssuesPage = async () => {
           </thead>
           <tbody>
             {issues.map((issue) => (
-              <tr
-                key={issue.id}
-                className="odd:bg-white even:bg-gray-50 border-b"
-              >
+              <tr key={issue} className="odd:bg-white even:bg-gray-50 border-b">
                 <th
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-700 whitespace-nowrap"
                 >
-                  {issue.title}
+                  <Skeleton />
                   <div className="block md:hidden mt-2">
-                    <IssueStatusBadge status={issue?.status} />
+                    <Skeleton />
                   </div>
                 </th>
                 <td className="px-6 py-4 hidden md:table-cell">
-                  <IssueStatusBadge status={issue?.status} />
+                  <Skeleton />
                 </td>
                 <td className="px-6 py-4 hidden md:table-cell">
-                  {issue.createdAt.toDateString()}
+                  <Skeleton />
                 </td>
               </tr>
             ))}
@@ -61,4 +51,4 @@ const IssuesPage = async () => {
   );
 };
 
-export default IssuesPage;
+export default LoadingIssuesPage;
