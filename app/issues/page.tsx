@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import prisma from "@/prisma/client";
+import IssueStatusBadge from "../components/IssueStatusBadge";
 import styles from "./style.module.css";
 
 const IssuesPage = async () => {
@@ -14,8 +15,8 @@ const IssuesPage = async () => {
         </button>
       </div>
 
-      <div className="relative overflow-x-auto sm:rounded-lg">
-        <table className="w-full border text-sm text-left rtl:text-right text-gray-500 bg-white">
+      <div className="relative border overflow-hidden overflow-x-auto sm:rounded-lg">
+        <table className="w-full text-sm text-left rtl:text-right text-gray-500 bg-white">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50">
             <tr>
               <th scope="col" className="px-6 py-3">
@@ -40,10 +41,12 @@ const IssuesPage = async () => {
                   className="px-6 py-4 font-medium text-gray-700 whitespace-nowrap"
                 >
                   {issue.title}
-                  <div className="block md:hidden">{issue.status}</div>
+                  <div className="block md:hidden mt-2">
+                    <IssueStatusBadge status={issue?.status} />
+                  </div>
                 </th>
                 <td className="px-6 py-4 hidden md:table-cell">
-                  {issue.status}
+                  <IssueStatusBadge status={issue?.status} />
                 </td>
                 <td className="px-6 py-4 hidden md:table-cell">
                   {issue.createdAt.toDateString()}
