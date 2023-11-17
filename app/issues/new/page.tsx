@@ -7,6 +7,7 @@ import axios from "axios";
 import { createIssueSchema } from "../../validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import ErrorMessage from "../../components/ErrorMessage";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import styles from "./style.module.css";
@@ -67,9 +68,7 @@ const NewIssuePage = () => {
             placeholder="Title"
             {...register("title")}
           />
-          {errors.title && (
-            <p className="text-red-500 mt-2">{errors.title.message}</p>
-          )}
+          <ErrorMessage>{errors.title?.message}</ErrorMessage>
         </div>
         <div className="leading-normal">
           <Controller
@@ -84,9 +83,7 @@ const NewIssuePage = () => {
               />
             )}
           />
-          {errors.description && (
-            <p className="text-red-500 mt-2">{errors.description.message}</p>
-          )}
+          <ErrorMessage>{errors.description?.message}</ErrorMessage>
         </div>
         <button className={`${styles["btn"]} ${styles["btnBlue"]}`}>
           Submit New Issue
