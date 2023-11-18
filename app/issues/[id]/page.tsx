@@ -1,4 +1,5 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
 import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
 import IssueStatusBadge from "@/app/components/IssueStatusBadge";
@@ -8,8 +9,6 @@ interface Props {
 }
 
 const IssueDetailPage = async ({ params }: Props) => {
-  //  if (typeof params.id !== "number") notFound();
-
   const issue = await prisma.issue.findUnique({
     where: { id: parseInt(params.id) },
   });
@@ -25,11 +24,12 @@ const IssueDetailPage = async ({ params }: Props) => {
           - {issue.createdAt.toDateString()} -
         </p>
       </div>
+
       <div className="relative border flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border">
-        <div className="p-6">
-          <p className="block text-base antialiased font-light leading-relaxed text-inherit">
+        <div className="p-6 prose lg:prose-xl">
+          <ReactMarkdown className="block text-base antialiased leading-relaxed text-inherit">
             {issue.description}
-          </p>
+          </ReactMarkdown>
         </div>
       </div>
     </div>
