@@ -2,12 +2,11 @@ import React from "react";
 import Link from "next/link";
 import prisma from "@/prisma/client";
 import IssueStatusBadge from "../components/IssueStatusBadge";
-import delay from "delay";
 import styles from "./style.module.css";
 
 const IssuesPage = async () => {
   const issues = await prisma.issue.findMany();
-  await delay(2000);
+
   return (
     <div>
       <div className="mb-5">
