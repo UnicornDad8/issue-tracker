@@ -2,7 +2,7 @@ import React from "react";
 import ReactMarkdown from "react-markdown";
 import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
-import IssueStatusBadge from "@/app/components/IssueStatusBadge";
+import { IssueStatusBadge } from "@/app/components";
 
 interface Props {
   params: { id: string };
