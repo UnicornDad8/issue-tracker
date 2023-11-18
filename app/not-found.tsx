@@ -8,7 +8,10 @@ const NotFound = () => {
       <p>We couldn&apos;t find the page you where looking for</p>
       <p>
         Go back to the{" "}
-        <Link href="/issues" className="underline text-blue-500">
+        <Link
+          href="/issues"
+          className="hover:underline hover:text-blue-700 text-blue-500"
+        >
           Dashboard
         </Link>
       </p>

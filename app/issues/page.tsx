@@ -41,7 +41,12 @@ const IssuesPage = async () => {
                   scope="row"
                   className="px-6 py-4 font-medium text-gray-700 whitespace-nowrap"
                 >
-                  <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                  <Link
+                    href={`/issues/${issue.id}`}
+                    className="hover:underline hover:text-blue-700 text-blue-500"
+                  >
+                    {issue.title}
+                  </Link>
                   <div className="block md:hidden mt-2">
                     <IssueStatusBadge status={issue?.status} />
                   </div>
