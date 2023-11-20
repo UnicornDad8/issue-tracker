@@ -1,0 +1,17 @@
+.btn {
+  @apply font-normal py-2 px-4 rounded;
+}
+.btnBlue {
+  @apply bg-blue-500 text-white;
+}
+.btnBlue:hover {
+  @apply bg-blue-700;
+}
+
+.card {
+  @apply relative border flex flex-col text-gray-700 bg-white shadow-md w-96 rounded-xl bg-clip-border;
+}
+
+.markdown {
+  @apply block text-base antialiased leading-relaxed text-inherit;
+}
