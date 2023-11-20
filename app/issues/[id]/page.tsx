@@ -2,6 +2,7 @@ import React from "react";
 import prisma from "@/prisma/client";
 import { notFound } from "next/navigation";
 import EditIssueButton from "./EditIssueButton";
+import DeleteIssueButton from "./DeleteIssueButton";
 import IssueDetails from "./IssueDetails";
 
 interface Props {
@@ -16,12 +17,17 @@ const IssueDetailPage = async ({ params }: Props) => {
   if (!issue) notFound();
 
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="md:flex-1 w-full">
+    <div className="flex flex-col md:flex-row md:space-x-2">
+      <div className="lg:flex-1 w-full mb-4">
         <IssueDetails issue={issue} />
       </div>
-      <div className="md:w-[400px] md:mt-0 md:ml-4 mt-4 w-full">
-        <EditIssueButton issueId={issue.id} />
+      <div className="lg:w-[300px] flex items-stretch md:flex-col sm:flex-row flex-col w-full">
+        <div className="mb-2 md:flex-none flex-1">
+          <EditIssueButton issueId={issue.id} />
+        </div>
+        <div className="md:flex-none sm:ml-2 md:ml-0 flex-1">
+          <DeleteIssueButton issueId={issue.id} />
+        </div>
       </div>
     </div>
   );
