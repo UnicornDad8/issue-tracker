@@ -1,12 +1,15 @@
 "use client";
 
 import React, { useRef } from "react";
+import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import DeleteModal from "./DeleteModal";
+import { useRouter } from "next/navigation";
 import styles from "./style.module.css";
 
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
   const modalRef = useRef(null);
+  const router = useRouter();
 
   return (
     <>
@@ -51,6 +54,11 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
             <button
               type="button"
               className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+              onClick={async () => {
+                await axios.delete("/api/issues/" + issueId);
+                router.push("/issues");
+                router.refresh();
+              }}
             >
               Delete Issue
             </button>
