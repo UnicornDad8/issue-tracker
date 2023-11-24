@@ -5,7 +5,7 @@ import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import DeleteModal from "../_components/DeleteModal";
 import { useRouter } from "next/navigation";
-import LoadingDots from "@/app/components/LoadingDots";
+import { LoadingDots } from "@/app/components";
 import styles from "./style.module.css";
 
 const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
@@ -18,7 +18,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number }) => {
     try {
       setDeleting(true);
       await axios.delete("/api/issues/" + issueId);
-      router.push("/issues");
+      router.push("/issues/list");
       router.refresh();
     } catch (error) {
       setDeleting(false);

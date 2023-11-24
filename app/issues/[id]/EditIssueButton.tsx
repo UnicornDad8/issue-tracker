@@ -5,7 +5,7 @@ import styles from "./style.module.css";
 
 const EditIssueButton = ({ issueId }: { issueId: number }) => {
   return (
-    <Link href={`/issues/${issueId}/edit`} passHref legacyBehavior>
+    <Link href={`/issues/edit/${issueId}`} passHref legacyBehavior>
       <button
         className={`${styles["btn"]} ${styles["btnBlue"]} flex items-center flex-1 w-full`}
       >

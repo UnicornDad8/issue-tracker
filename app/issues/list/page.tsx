@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import prisma from "@/prisma/client";
 import { IssueStatusBadge } from "@/app/components";
-import styles from "./style.module.css";
+import styles from "../style.module.css";
 
 const IssuesPage = async () => {
   const issues = await prisma.issue.findMany();
