@@ -3,12 +3,13 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 import { BsFillBugFill } from "react-icons/bs";
 import classnames from "classnames";
 
 const Navbar = () => {
   const currentPath = usePathname();
-  console.log(currentPath);
+  const { status, data: session } = useSession();
 
   const links = [
     { label: "Dashboard", href: "/" },
@@ -42,6 +43,14 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
+      <div>
+        {status === "authenticated" && (
+          <Link href="/api/auth/signout">Logout</Link>
+        )}
+        {status === "unauthenticated" && (
+          <Link href="/api/auth/signin">Login</Link>
+        )}
+      </div>
     </nav>
   );
 };
