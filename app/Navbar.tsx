@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -10,6 +10,7 @@ import classnames from "classnames";
 const Navbar = () => {
   const currentPath = usePathname();
   const { status, data: session } = useSession();
+  const [showMenu, setShowMenu] = useState(false);
 
   const links = [
     { label: "Dashboard", href: "/" },
@@ -49,7 +50,55 @@ const Navbar = () => {
 
         <div className="flex items-center">
           {status === "authenticated" && (
-            <Link href="/api/auth/signout">Logout</Link>
+            <div className="relative inline-block text-left">
+              {/**<Link >Logout</Link> */}
+              <div onClick={() => setShowMenu(!showMenu)}>
+                <div className="w-10 h-10 cursor-pointer rounded-full overflow-hidden border-4 border-blue-500 shadow-black shadow-2xl">
+                  {session?.user ? (
+                    <img
+                      className="w-full h-full object-contain"
+                      src={session.user!.image!}
+                      alt="avatar"
+                    />
+                  ) : (
+                    <div className="flex w-full h-full bg-gray-400 text-white items-center justify-center font-bold">
+                      {session.user!.name[0]!}
+                    </div>
+                  )}
+                </div>
+              </div>
+              {showMenu && (
+                <div
+                  className="absolute right-0 z-10 mt-2 w-86 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="menu-button"
+                  tabindex="-1"
+                >
+                  <div className="p-6">
+                    <div role="none">
+                      <p
+                        className="text-gray-400 text-lg leading-relaxed antialiased tracking-wide block mb-2"
+                        role="menuitem"
+                        tabindex="-1"
+                        id="menu-item-0"
+                      >
+                        {session!.user!.email}
+                      </p>
+                    </div>
+                    <Link
+                      href="/api/auth/signout"
+                      role="menuitem"
+                      tabindex="-1"
+                      id="menu-item-1"
+                      className="bg-blue-500 hover:bg-blue-300 flex grow text-white py-2 px-4 rounded"
+                    >
+                      Logout
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
           )}
           {status === "unauthenticated" && (
             <Link href="/api/auth/signin">Login</Link>
