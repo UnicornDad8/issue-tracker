@@ -8,6 +8,7 @@ import { BsFillBugFill } from "react-icons/bs";
 import { MdOutlineLogin } from "react-icons/md";
 import { Avatar } from "./components";
 import classnames from "classnames";
+import { Skeleton } from "@/app/components";
 
 const Navbar = () => {
   return (
@@ -62,7 +63,8 @@ const AuthStatus = () => {
   const { status, data: session } = useSession();
   const [showMenu, setShowMenu] = useState(false);
 
-  if (status === "loading") null;
+  if (status === "loading")
+    return <Skeleton circle={true} width="3rem" height="3rem" />;
 
   if (status === "unauthenticated")
     return (
