@@ -51,8 +51,8 @@ const Navbar = () => {
         <div className="flex items-center">
           {status === "authenticated" && (
             <div className="relative inline-block text-left">
-              {/**<Link >Logout</Link> */}
               <div onClick={() => setShowMenu(!showMenu)}>
+                {" "}
                 <div className="w-10 h-10 cursor-pointer rounded-full overflow-hidden border-4 border-blue-500 shadow-black shadow-2xl">
                   {session?.user ? (
                     <img
