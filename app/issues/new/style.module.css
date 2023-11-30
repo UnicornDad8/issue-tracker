@@ -2,7 +2,7 @@
   @apply font-normal py-2 px-4 rounded;
 }
 .btnBlue {
-  @apply bg-blue-500 text-white;
+  @apply bg-blue-500 text-white shadow-2xl shadow-blue-300;
 }
 .btnBlue:hover {
   @apply bg-blue-300;

@@ -68,7 +68,10 @@ const AuthStatus = () => {
 
   if (status === "unauthenticated")
     return (
-      <Link className="btn btn-blue flex items-center" href="/api/auth/signin">
+      <Link
+        className="btn btn-blue flex items-center shadow-2xl shadow-blue-300"
+        href="/api/auth/signin"
+      >
         <MdOutlineLogin className="mr-2" />
         Login
       </Link>
@@ -104,7 +107,7 @@ const AuthStatus = () => {
                 role="menuitem"
                 tabindex="-1"
                 id="menu-item-1"
-                className="bg-blue-500 hover:bg-blue-300 flex grow text-white py-2 px-4 rounded"
+                className="bg-blue-500 hover:bg-blue-300 flex grow text-white py-2 px-4 shadow-2xl shadow-blue-300 font-semibold rounded"
               >
                 Logout
               </Link>
