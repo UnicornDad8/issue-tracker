@@ -20,12 +20,15 @@ const LoadingIssueDetailPage = () => {
         </div>
       </div>
 
-      <div className="lg:w-[300px] flex items-stretch md:flex-col sm:flex-row flex-col w-full">
-        <div className="mb-2 md:flex-none flex-1">
-          <Skeleton height="3rem" />
-        </div>
-        <div className="md:flex-none sm:ml-2 md:ml-0 flex-1">
-          <Skeleton height="3rem" />
+      <div className="lg:w-[300px] w-full">
+        <Skeleton height="3rem" />
+        <div className="lg:w-[300px] flex items-stretch md:flex-col sm:flex-row flex-col w-full">
+          <div className="mb-2 md:flex-none flex-1">
+            <Skeleton height="3rem" />
+          </div>
+          <div className="md:flex-none sm:ml-2 md:ml-0 flex-1">
+            <Skeleton height="3rem" />
+          </div>
         </div>
       </div>
     </div>

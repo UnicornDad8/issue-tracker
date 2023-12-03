@@ -24,3 +24,5 @@
 .markdown {
   @apply block text-base antialiased leading-relaxed text-inherit;
 }
+
+/* ---------- Select ----------- */
