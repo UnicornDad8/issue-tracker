@@ -5,25 +5,30 @@ import { IoIosArrowDown } from "react-icons/io";
 import useClickOutside from "@/app/helpers/clickOutside";
 import { User } from "@prisma/client";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import { Skeleton } from "@/app/components";
 
 const AssigneeSelect = () => {
-  const [users, setUsers] = useState<User[]>([]);
   const [isToggled, setToggle] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const ref = useRef(null);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      const { data } = await axios.get<User[]>("/api/users");
-      setUsers(data);
-    };
+  useClickOutside(ref, () => setToggle(false));
 
-    fetchUsers();
-  }, []);
-
-  useClickOutside(ref, () => {
-    setToggle(false);
+  const {
+    data: users,
+    error,
+    isLoading,
+  } = useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: () => axios.get("/api/users").then((res) => res.data),
+    staleTime: 60 * 1000,
+    retry: 3,
   });
+
+  if (error) return null;
+
+  if (isLoading) return <Skeleton className="mb-2" height="3rem" />;
 
   const onOptionClicked = (value) => () => {
     setSelectedOption(value);
@@ -54,13 +59,13 @@ const AssigneeSelect = () => {
         >
           <p className="text-gray-500 text-sm mb-2">Suggestions</p>
           <ul className="">
-            {users.map((user) => (
+            {users?.map((user) => (
               <li
-                key={user.id}
-                onClick={onOptionClicked(user.name)}
+                key={user?.id}
+                onClick={onOptionClicked(user?.name)}
                 className="mt-2 text-gray-600 py-2 px-4 rounded-md hover:bg-gray-300"
               >
-                {user.name}
+                {user?.name}
               </li>
             ))}
           </ul>
