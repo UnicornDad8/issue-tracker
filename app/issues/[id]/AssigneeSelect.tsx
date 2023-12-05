@@ -6,8 +6,6 @@ import useClickOutside from "@/app/helpers/clickOutside";
 import { User } from "@prisma/client";
 import axios from "axios";
 
-const options = ["Ceci", "Sol", "Jaz", "Paz"];
-
 const AssigneeSelect = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [isToggled, setToggle] = useState(false);
