@@ -28,7 +28,7 @@ const IssueDetailPage = async ({ params }: Props) => {
       </div>
       {session && (
         <div className="lg:w-[300px] w-full">
-          <AssigneeSelect />
+          <AssigneeSelect issue={issue} />
           <div className="lg:w-[300px] flex items-stretch md:flex-col sm:flex-row flex-col w-full">
             <div className="mb-2 md:flex-none flex-1">
               <EditIssueButton issueId={issue.id} />
