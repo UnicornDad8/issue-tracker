@@ -1,15 +1,27 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import useClickOutside from "@/app/helpers/clickOutside";
+import { User } from "@prisma/client";
+import axios from "axios";
 
 const options = ["Ceci", "Sol", "Jaz", "Paz"];
 
 const AssigneeSelect = () => {
+  const [users, setUsers] = useState<User[]>([]);
   const [isToggled, setToggle] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const ref = useRef(null);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      const { data } = await axios.get<User[]>("/api/users");
+      setUsers(data);
+    };
+
+    fetchUsers();
+  }, []);
 
   useClickOutside(ref, () => {
     setToggle(false);
@@ -44,13 +56,13 @@ const AssigneeSelect = () => {
         >
           <p className="text-gray-500 text-sm mb-2">Suggestions</p>
           <ul className="">
-            {options.map((option, i) => (
+            {users.map((user) => (
               <li
-                key={i}
-                onClick={onOptionClicked(option)}
+                key={user.id}
+                onClick={onOptionClicked(user.name)}
                 className="mt-2 text-gray-600 py-2 px-4 rounded-md hover:bg-gray-300"
               >
-                {option}
+                {user.name}
               </li>
             ))}
           </ul>
