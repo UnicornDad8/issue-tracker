@@ -19,21 +19,11 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
 
   useClickOutside(ref, () => setToggle(false));
   useEffect(() => {
-    // While loading, load the state from the localStorage.
     if (window.localStorage.getItem(key))
       setSelectedOption(window.localStorage.getItem(key));
   }, []);
 
-  const {
-    data: users,
-    error,
-    isLoading,
-  } = useQuery<User[]>({
-    queryKey: ["users"],
-    queryFn: () => axios.get("/api/users").then((res) => res.data),
-    staleTime: 60 * 1000,
-    retry: 3,
-  });
+  const { data: users, error, isLoading } = useUsers();
 
   if (error) return null;
 
@@ -41,7 +31,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
 
   const onOptionClicked = (value, userId, i) => async () => {
     try {
-      await axios.patch("/api/xissues/" + issue.id, {
+      await axios.patch("/api/issues/" + issue.id, {
         assignedToUserId: userId || null,
       });
 
@@ -100,5 +90,13 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
     </>
   );
 };
+
+const useUsers = () =>
+  useQuery<User[]>({
+    queryKey: ["users"],
+    queryFn: () => axios.get("/api/users").then((res) => res.data),
+    staleTime: 60 * 1000,
+    retry: 3,
+  });
 
 export default AssigneeSelect;
