@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import prisma from "@/prisma/client";
 import { IssueStatusBadge } from "@/app/components";
+import IssueActions from "./IssueActions";
 import styles from "../style.module.css";
 
 const IssuesPage = async () => {
@@ -9,11 +10,7 @@ const IssuesPage = async () => {
 
   return (
     <div>
-      <div className="mb-5">
-        <button className={`${styles["btn"]} ${styles["btnBlue"]}`}>
-          <Link href="/issues/new">New Issue</Link>
-        </button>
-      </div>
+      <IssueActions />
 
       {issues.length > 0 && (
         <div className="relative border overflow-hidden overflow-x-auto sm:rounded-lg">
