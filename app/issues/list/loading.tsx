@@ -1,6 +1,6 @@
-import React from "react";
-import IssueActions from "./IssueActions";
 import { Skeleton } from "@/app/components";
+import { Table } from "@radix-ui/themes";
+import IssueActions from "./IssueActions";
 
 const LoadingIssuesPage = () => {
   const issues = [1, 2, 3, 4, 5];
@@ -8,44 +8,37 @@ const LoadingIssuesPage = () => {
   return (
     <div>
       <IssueActions />
-      <div className="relative border overflow-hidden overflow-x-auto sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 bg-white">
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Issue
-              </th>
-              <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                Status
-              </th>
-              <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                Created
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {issues.map((issue) => (
-              <tr key={issue} className="odd:bg-white even:bg-gray-50 border-b">
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-medium text-gray-700 whitespace-nowrap"
-                >
+      <Table.Root variant="surface">
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell className="hidden md:table-cell">
+              Status
+            </Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell className="hidden md:table-cell">
+              Created
+            </Table.ColumnHeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {issues.map((issue) => (
+            <Table.Row key={issue}>
+              <Table.Cell>
+                <Skeleton />
+                <div className="block md:hidden">
                   <Skeleton />
-                  <div className="block md:hidden mt-2">
-                    <Skeleton />
-                  </div>
-                </th>
-                <td className="px-6 py-4 hidden md:table-cell">
-                  <Skeleton />
-                </td>
-                <td className="px-6 py-4 hidden md:table-cell">
-                  <Skeleton />
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+                </div>
+              </Table.Cell>
+              <Table.Cell className="hidden md:table-cell">
+                <Skeleton />
+              </Table.Cell>
+              <Table.Cell className="hidden md:table-cell">
+                <Skeleton />
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Root>
     </div>
   );
 };

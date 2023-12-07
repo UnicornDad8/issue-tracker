@@ -1,7 +1,6 @@
-import React from "react";
-import Link from "next/link";
 import prisma from "@/prisma/client";
-import { IssueStatusBadge } from "@/app/components";
+import { Table } from "@radix-ui/themes";
+import { IssueStatusBadge, Link } from "@/app/components";
 import IssueActions from "./IssueActions";
 import { Status } from "@prisma/client";
 
@@ -24,55 +23,37 @@ const IssuesPage = async ({ searchParams }: Props) => {
   return (
     <div>
       <IssueActions />
-
-      {issues.length > 0 && (
-        <div className="relative border overflow-hidden overflow-x-auto sm:rounded-lg">
-          <table className="w-full text-sm text-left rtl:text-right text-gray-500 bg-white">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
-              <tr>
-                <th scope="col" className="px-6 py-3">
-                  Issue
-                </th>
-                <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                  Status
-                </th>
-                <th scope="col" className="px-6 py-3 hidden md:table-cell">
-                  Created
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              {issues.map((issue) => (
-                <tr
-                  key={issue.id}
-                  className="odd:bg-white even:bg-gray-50 border-b"
-                >
-                  <th
-                    scope="row"
-                    className="px-6 py-4 font-medium text-gray-700 whitespace-nowrap"
-                  >
-                    <Link
-                      href={`/issues/${issue.id}`}
-                      className="hover:underline hover:text-blue-700 text-blue-500"
-                    >
-                      {issue.title}
-                    </Link>
-                    <div className="block md:hidden mt-2">
-                      <IssueStatusBadge status={issue?.status} />
-                    </div>
-                  </th>
-                  <td className="px-6 py-4 hidden md:table-cell">
-                    <IssueStatusBadge status={issue?.status} />
-                  </td>
-                  <td className="px-6 py-4 hidden md:table-cell">
-                    {issue.createdAt.toDateString()}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+      <Table.Root variant="surface">
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeaderCell>Issue</Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell className="hidden md:table-cell">
+              Status
+            </Table.ColumnHeaderCell>
+            <Table.ColumnHeaderCell className="hidden md:table-cell">
+              Created
+            </Table.ColumnHeaderCell>
+          </Table.Row>
+        </Table.Header>
+        <Table.Body>
+          {issues.map((issue) => (
+            <Table.Row key={issue.id}>
+              <Table.Cell>
+                <Link href={`/issues/${issue.id}`}>{issue.title}</Link>
+                <div className="block md:hidden">
+                  <IssueStatusBadge status={issue.status} />
+                </div>
+              </Table.Cell>
+              <Table.Cell className="hidden md:table-cell">
+                <IssueStatusBadge status={issue.status} />
+              </Table.Cell>
+              <Table.Cell className="hidden md:table-cell">
+                {issue.createdAt.toDateString()}
+              </Table.Cell>
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Root>
     </div>
   );
 };

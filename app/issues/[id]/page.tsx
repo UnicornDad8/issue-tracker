@@ -1,9 +1,9 @@
-import React from "react";
 import prisma from "@/prisma/client";
+import { Box, Flex, Grid } from "@radix-ui/themes";
 import { notFound } from "next/navigation";
 import EditIssueButton from "./EditIssueButton";
-import DeleteIssueButton from "./DeleteIssueButton";
 import IssueDetails from "./IssueDetails";
+import DeleteIssueButton from "./DeleteIssueButton";
 import { getServerSession } from "next-auth";
 import authOptions from "@/app/auth/authOptions";
 import AssigneeSelect from "./AssigneeSelect";
@@ -22,24 +22,20 @@ const IssueDetailPage = async ({ params }: Props) => {
   if (!issue) notFound();
 
   return (
-    <div className="flex flex-col md:flex-row md:space-x-2">
-      <div className="lg:flex-1 w-full mb-4">
+    <Grid columns={{ initial: "1", sm: "5" }} gap="5">
+      <Box className="md:col-span-4">
         <IssueDetails issue={issue} />
-      </div>
+      </Box>
       {session && (
-        <div className="lg:w-[300px] w-full">
-          <AssigneeSelect issue={issue} />
-          <div className="lg:w-[300px] flex items-stretch md:flex-col sm:flex-row flex-col w-full">
-            <div className="mb-2 md:flex-none flex-1">
-              <EditIssueButton issueId={issue.id} />
-            </div>
-            <div className="md:flex-none sm:ml-2 md:ml-0 flex-1">
-              <DeleteIssueButton issueId={issue.id} />
-            </div>
-          </div>
-        </div>
+        <Box>
+          <Flex direction="column" gap="4">
+            <AssigneeSelect issue={issue} />
+            <EditIssueButton issueId={issue.id} />
+            <DeleteIssueButton issueId={issue.id} />
+          </Flex>
+        </Box>
       )}
-    </div>
+    </Grid>
   );
 };
 

@@ -1,18 +1,13 @@
-import React from "react";
+import { Pencil2Icon } from "@radix-ui/react-icons";
+import { Button } from "@radix-ui/themes";
 import Link from "next/link";
-import { FaRegEdit } from "react-icons/fa";
-import styles from "./style.module.css";
 
 const EditIssueButton = ({ issueId }: { issueId: number }) => {
   return (
-    <Link href={`/issues/edit/${issueId}`} passHref legacyBehavior>
-      <button
-        className={`${styles["btn"]} ${styles["btnBlue"]} flex items-center flex-1 w-full`}
-      >
-        <FaRegEdit className="mr-2" />
-        Edit Issue
-      </button>
-    </Link>
+    <Button>
+      <Pencil2Icon />
+      <Link href={`/issues/edit/${issueId}`}>Edit Issue</Link>
+    </Button>
   );
 };
 

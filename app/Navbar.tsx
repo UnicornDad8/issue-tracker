@@ -1,27 +1,38 @@
 "use client";
 
-import React, { useState } from "react";
+import { Skeleton } from "@/app/components";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { BsFillBugFill } from "react-icons/bs";
-import { MdOutlineLogin } from "react-icons/md";
-import { Avatar } from "./components";
+import React from "react";
+import { AiFillBug } from "react-icons/ai";
 import classnames from "classnames";
-import { Skeleton } from "@/app/components";
+import { useSession } from "next-auth/react";
+import {
+  Avatar,
+  Button,
+  Box,
+  Container,
+  DropdownMenu,
+  Flex,
+  Text,
+} from "@radix-ui/themes";
 
-const Navbar = () => {
+const NavBar = () => {
   return (
     <nav className="border-b mb-5 px-5">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-x-3">
-          <Link href="/">
-            <BsFillBugFill color="#3B82F6" size={"1.8rem"} />
-          </Link>
-          <NavLinks />
-        </div>
-        <AuthStatus />
-      </div>
+      <Container>
+        <Flex justify="between">
+          <Flex align="center" gap="3">
+            <Link href="/">
+              <AiFillBug size={30} color="#3e63dd" />
+            </Link>
+            <NavLinks />
+          </Flex>
+          <Flex align="center">
+            <AuthStatus />
+          </Flex>
+        </Flex>
+      </Container>
     </nav>
   );
 };
@@ -41,13 +52,13 @@ const NavLinks = () => {
           key={link.href}
           className={classnames({
             "bg-zinc-100": link.href === currentPath,
-            "flex h-14 items-center px-6": true,
+            "flex items-center px-6 py-3": true,
           })}
         >
           <Link
             className={classnames({
               "nav-link": true,
-              "text-zinc-900": link.href === currentPath,
+              "!text-zinc-900": link.href === currentPath,
             })}
             href={link.href}
           >
@@ -61,62 +72,42 @@ const NavLinks = () => {
 
 const AuthStatus = () => {
   const { status, data: session } = useSession();
-  const [showMenu, setShowMenu] = useState(false);
 
-  if (status === "loading")
-    return <Skeleton circle={true} width="3rem" height="3rem" />;
+  if (status === "loading") return <Skeleton width="4rem" height="2rem" />;
 
   if (status === "unauthenticated")
     return (
-      <Link
-        className="btn btn-blue flex items-center shadow-2xl shadow-blue-300"
-        href="/api/auth/signin"
-      >
-        <MdOutlineLogin className="mr-2" />
-        Login
-      </Link>
+      <Button>
+        <Link className="text-white" href="/api/auth/signin">
+          Login
+        </Link>
+      </Button>
     );
 
   return (
-    <div className="flex items-center">
-      <div className="relative inline-block text-left">
-        <div onClick={() => setShowMenu(!showMenu)}>
-          <Avatar user={session?.user} />
-        </div>
-        {showMenu && (
-          <div
-            className="absolute right-0 z-10 mt-2 w-86 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-            role="menu"
-            aria-orientation="vertical"
-            aria-labelledby="menu-button"
-            tabindex="-1"
-          >
-            <div className="p-6">
-              <div role="none">
-                <p
-                  className="text-gray-400 text-lg leading-relaxed antialiased tracking-wide block mb-2"
-                  role="menuitem"
-                  tabindex="-1"
-                  id="menu-item-0"
-                >
-                  {session?.user?.email}
-                </p>
-              </div>
-              <Link
-                href="/api/auth/signout"
-                role="menuitem"
-                tabindex="-1"
-                id="menu-item-1"
-                className="bg-blue-500 hover:bg-blue-300 flex grow text-white py-2 px-4 shadow-2xl shadow-blue-300 font-semibold rounded"
-              >
-                Logout
-              </Link>
-            </div>
-          </div>
-        )}
-      </div>
-    </div>
+    <Box>
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          <Avatar
+            src={session!.user!.image!}
+            fallback="?"
+            size="2"
+            radius="full"
+            className="cursor-pointer"
+            referrerPolicy="no-referrer"
+          />
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content>
+          <DropdownMenu.Label>
+            <Text size="2">{session!.user!.email}</Text>
+          </DropdownMenu.Label>
+          <DropdownMenu.Item>
+            <Link href="/api/auth/signout">Log out</Link>
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
+    </Box>
   );
 };
 
-export default Navbar;
+export default NavBar;
