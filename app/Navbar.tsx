@@ -23,7 +23,7 @@ const NavBar = () => {
       <Container>
         <Flex justify="between">
           <Flex align="center" gap="3">
-            <Link href="/">
+            <Link href="/" className="ml-[-10px]">
               <AiFillBug size={30} color="#3e63dd" />
             </Link>
             <NavLinks />
