@@ -11,7 +11,6 @@ import {
   Avatar,
   Button,
   Box,
-  Container,
   DropdownMenu,
   Flex,
   Text,
@@ -20,19 +19,17 @@ import {
 const NavBar = () => {
   return (
     <nav className="border-b mb-5 px-5">
-      <Container>
-        <Flex justify="between">
-          <Flex align="center" gap="3">
-            <Link href="/" className="ml-[-10px]">
-              <AiFillBug size={30} color="#3e63dd" />
-            </Link>
-            <NavLinks />
-          </Flex>
-          <Flex align="center">
-            <AuthStatus />
-          </Flex>
+      <Flex justify="between">
+        <Flex align="center" gap="3">
+          <Link href="/" className="md:ml-0 ml-[-10px]">
+            <AiFillBug size={30} color="#3e63dd" />
+          </Link>
+          <NavLinks />
         </Flex>
-      </Container>
+        <Flex align="center">
+          <AuthStatus />
+        </Flex>
+      </Flex>
     </nav>
   );
 };
