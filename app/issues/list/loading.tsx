@@ -1,13 +1,16 @@
 import { Skeleton } from "@/app/components";
 import { Table } from "@radix-ui/themes";
-import IssueActions from "./IssueActions";
+import { Flex } from "@radix-ui/themes";
 
 const LoadingIssuesPage = () => {
   const issues = [1, 2, 3, 4, 5];
 
   return (
     <div>
-      <IssueActions />
+      <Flex justify="between">
+        <Skeleton height="3rem" />
+        <Skeleton height="3rem" />
+      </Flex>
       <Table.Root variant="surface">
         <Table.Header>
           <Table.Row>

@@ -1,3 +1,21 @@
+## Issue Tracker
+
+> A webapp made with Next.Js to track bugs.
+
+![screenshot](./app_screenshot.png)
+
+## Built With
+
+- HTML
+- TypeScript
+- React
+- TailwindCSS
+- Next.Js
+
+## Video Demo
+
+[Link Video Demo](https://www.youtube.com/watch?v=PKg1uAF1Dak&ab_channel=C%C3%B3digoSimple)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -34,3 +52,13 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## 🤝 Contributing
+
+Contributions, issues and feature requests are welcome!
+
+Feel free to check the [issues page](https://github.com/UnicornDad8/issue-tracker/issues).
+
+## 📝 License
+
+This project is [MIT](lic.url) licensed.
